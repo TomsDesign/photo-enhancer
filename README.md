@@ -1,5 +1,86 @@
 # photo-enhancer
-<!DOCTYPE html>
+<<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Photo Enhancer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Photo Enhancer</h1>
+            <p>Upload an image and enhance it using AI!</p>
+        </header>
+
+        <main>
+            <input type="file" id="upload" accept="image/*" />
+            <button id="enhanceButton" onclick="uploadImage()">Enhance Image</button>
+            <div class="result-container" style="display: none;">
+                <img id="output" alt="Enhanced Image" />
+                <a id="downloadBtn" style="display: none;" download="enhanced_image.jpg">
+                    <button>Download Image</button>
+                </a>
+            </div>
+            <p id="loadingMessage" style="display: none;">Enhancing your image... please wait!</p>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Photo Enhancer App | Created by TomsDesign</p>
+        </footer>
+    </div>
+
+    <script>
+        async function uploadImage() {
+            let file = document.getElementById('upload').files[0];
+            if (!file) {
+                alert("Please select an image!");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('image', file);
+
+            // Show loading message and disable the button
+            document.getElementById('loadingMessage').style.display = "block";
+            document.getElementById('enhanceButton').disabled = true;
+            document.getElementById('output').style.display = "none";
+            document.getElementById('downloadBtn').style.display = "none";
+
+            try {
+                // Replace with your Hugging Face URL or API endpoint
+                let response = await fetch('https://your-huggingface-link', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let data = await response.blob();
+                let url = URL.createObjectURL(data);
+                document.getElementById('output').src = url;
+                document.getElementById('output').style.display = "block";
+
+                // Show the download button
+                let downloadBtn = document.getElementById('downloadBtn');
+                downloadBtn.href = url;
+                downloadBtn.style.display = "block";
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("There was an error processing your image. Please try again.");
+            } finally {
+                // Hide loading message and enable the button
+                document.getElementById('loadingMessage').style.display = "none";
+                document.getElementById('enhanceButton').disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
+>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,7 +150,106 @@ document.getElementById('output').style.display = "none"; // Hide image while pr
     </script>
 </body>
 </html>
-<!DOCTYPE html>
+</* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 30px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* Button Styling */
+input[type="file"] {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+/* Result Section */
+.result-container {
+    margin-top: 30px;
+}
+
+.result-container img {
+    width: 80%;
+    max-width: 500px;
+    margin: 20px 0;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+a button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+a button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 0.9em;
+}
+>
 <html lang="en">
 <<link rel="stylesheet" href="style.css">
 >
